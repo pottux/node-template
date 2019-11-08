@@ -13,11 +13,13 @@ if (!username || !password) {
 const url = `mongodb://${username}:${password}@${dbUrl}/${db}?authSource=${db}&w=1`
 
 exports.connect = () => {
-    mongoose.connect(url, (error) => {
-        if (error) {
-            throw error
-        }
-        console.log('Connected to the database successfully!')
+    mongoose.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then(() => {
+        console.log('connected to database')
+    }).catch(err => {
+        console.log(err)
     })
 }
 
